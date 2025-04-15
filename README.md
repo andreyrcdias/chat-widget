@@ -101,7 +101,7 @@ This guide will show you how to integrate the Rasa chatbot widget into your webp
 
 ### Step 1: Add the Script Tag
 
-In the <head> section of your HTML file, include the script tag to load the chat widget module. This script fetches the necessary JavaScript from a CDN.
+In the `<head>` section of your HTML file, include the script tag to load the chat widget module. This script fetches the necessary JavaScript from a CDN.
 
 ```html
 <script
@@ -123,7 +123,7 @@ Also, include the CSS file to ensure the widget is styled correctly.
 
 ### Step 3: Insert the Chat Widget
 
-In the <body> section of your HTML, add the chat widget’s custom element. Make sure to set the server-url attribute to the appropriate URL of your Rasa server.
+In the `<body>` section of your HTML, add the chat widget’s custom element. Make sure to set the server-url attribute to the appropriate URL of your Rasa server.
 
 ```html
 <rasa-chatbot-widget server-url="https://example.com"></rasa-chatbot-widget>

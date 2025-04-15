@@ -86,7 +86,7 @@ export class RasaChatbotWidget {
   /**
    * Title of the Chat Widget
    */
-  @Prop() widgetTitle: string = 'Rasa Widget';
+  @Prop() widgetTitle: string = 'PNLD Chatbot';
 
   /**
    * Static icon for the chatbot
@@ -136,7 +136,7 @@ export class RasaChatbotWidget {
   /**
    * Message that should be displayed if an error occurs
    */
-  @Prop() errorMessage: string = 'Something bad happened';
+  @Prop() errorMessage: string = 'Algo de ruim aconteceu';
 
   /**
    * Indicates whether the chat messenger can be toggled to full screen mode.
@@ -146,7 +146,7 @@ export class RasaChatbotWidget {
   /**
    * Message placeholder for input
    */
-  @Prop() inputMessagePlaceholder: string = 'Type your message here';
+  @Prop() inputMessagePlaceholder: string = 'Insira sua mensagem aqui';
 
   /**
    * If set to True, instead of the default WebSocket communication, the widget will use the HTTP protocol.
@@ -247,7 +247,7 @@ export class RasaChatbotWidget {
         setTimeout(() => {
           messageQueueService.enqueueMessage(data);
           this.typingIndicator = false;
-          // If senderID is configured and message was sent from this tab, broadcast event to share chat history with other tabs with same senderID 
+          // If senderID is configured and message was sent from this tab, broadcast event to share chat history with other tabs with same senderID
           if (this.senderId && this.sentMessage) {
             debounce(() => {
               broadcastChatHistoryEvent(this.client.getChatHistory(), this.senderId);
@@ -416,7 +416,7 @@ export class RasaChatbotWidget {
               ></rasa-rating>
             </chat-message>
           );
-      
+
     }
   }
 
