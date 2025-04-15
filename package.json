@@ -13,7 +13,7 @@
     "e2e:install": "cd e2e && npm ci",
     "e2e:run": "(npm run dev&) && sleep 3s && cd e2e && npm run cy:run",
     "lerna": "lerna",
-    "public": "npm publish --access public"
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "@types/node": "^20.14.12",
