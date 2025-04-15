@@ -1,5 +1,7 @@
 # Rasa Chatbot Widget
 
+> Forked from https://github.com/RasaHQ/chat-widget for personal experimentation
+
 This project is a Rasa chatbot widget designed to be easily embeddable into any web applications. It leverages Lerna for managing multiple packages within a single repository. The widget utilizes StencilJS for building efficient and reusable web components.
 
 ## Requirements
