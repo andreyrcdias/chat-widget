@@ -12,12 +12,12 @@ describe('rasa-session-divider', () => {
 
     const rasaText = page.root.shadowRoot.querySelector('rasa-text');
 
-    expect(rasaText.outerHTML).toEqual('<rasa-text class="session-divider__text" disableparsing="" value="Session started on 25 Apr 2023, 3:45:30 PM"></rasa-text>');
+    expect(rasaText.outerHTML).toEqual('<rasa-text class="session-divider__text" disableparsing="" value="Sessão iniciada em 25 abr. 2023, 15:45:30"></rasa-text>');
     expect(page.root).toEqualHtml(`
     <rasa-session-divider>
       <mock:shadow-root>
         <div class="session-divider__line"></div>
-        <rasa-text class="session-divider__text" disableparsing="" value="Session started on 25 Apr 2023, 3:45:30 PM"></rasa-text>
+        <rasa-text class="session-divider__text" disableparsing="" value="Sessão iniciada em 25 abr. 2023, 15:45:30"></rasa-text>
         <div class="session-divider__line"></div>
       </mock:shadow-root>
     </rasa-session-divider>
