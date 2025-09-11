@@ -39,6 +39,6 @@ export const formatDateTimePtBr = (date: Date) => {
 
     return `${day} ${month} ${year}, ${timePart}`;
   } catch (error) {
-    throw new CustomErrorClass(ErrorSeverity.LogError, `formatDateTime: Invalid time object - arg:${date}, ${error}`);
+    throw new CustomErrorClass(ErrorSeverity.LogError, `formatDateTimePtBr: Invalid time object - arg:${date}, ${error}`);
   }
 };

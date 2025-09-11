@@ -1,4 +1,4 @@
-import { formatDateTime } from "./format-datetime";
+import { formatDateTime, formatDateTimePtBr } from "./format-datetime";
 
 describe('formatDateTime', () => {
   it('formats date correctly', () => {
@@ -41,3 +41,46 @@ describe('formatDateTime', () => {
     expect(() => formatDateTime('some text')).toThrow('formatDateTime: Invalid time object - arg:some text, TypeError: date.getDate is not a function');
   });
 });
+
+describe('formatDateTimePtBr', () => {
+  it('formats date correctly', () => {
+    const date = new Date('2023-04-25T15:45:30');
+    const formattedDate = formatDateTimePtBr(date);
+    expect(formattedDate).toBe('25 abr. 2023, 15:45:30');
+  });
+
+  it('formats date at noon correctly', () => {
+    const date = new Date('2023-04-25T12:00:00');
+    const formattedDate = formatDateTimePtBr(date);
+    expect(formattedDate).toBe('25 abr. 2023, 12:00:00');
+  });
+
+  it('formats date at midnight correctly', () => {
+    const date = new Date('2023-04-25T00:00:00');
+    const formattedDate = formatDateTimePtBr(date);
+    expect(formattedDate).toBe('25 abr. 2023, 00:00:00');
+  });
+
+  it('formats date in the morning correctly', () => {
+    const date = new Date('2023-04-25T07:30:45');
+    const formattedDate = formatDateTimePtBr(date);
+    expect(formattedDate).toBe('25 abr. 2023, 07:30:45');
+  });
+
+  it('handles single-digit days and months', () => {
+    const date = new Date('2023-01-05T10:05:09');
+    const formattedDate = formatDateTimePtBr(date);
+    expect(formattedDate).toBe('5 jan. 2023, 10:05:09');
+  });
+
+  it('handles empty argument', () => {
+    // @ts-ignore-next-line
+    expect(() => formatDateTimePtBr()).toThrow('Date not found');
+  });
+
+  it('handles non date object argument', () => {
+    // @ts-ignore-next-line
+    expect(() => formatDateTimePtBr('some text')).toThrow('formatDateTimePtBr: Invalid time object - arg:some text, TypeError: date.getDate is not a function');
+  });
+});
+
