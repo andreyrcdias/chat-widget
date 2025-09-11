@@ -21,3 +21,24 @@ export const formatDateTime = (date: Date) => {
     throw new CustomErrorClass(ErrorSeverity.LogError, `formatDateTime: Invalid time object - arg:${date}, ${error}`);
   }
 };
+
+export const formatDateTimePtBr = (date: Date) => {
+  if (!date) {
+    throw new CustomErrorClass(ErrorSeverity.Error, 'Date not found');
+  }
+  try {
+    const day = date.getDate();
+    const month = date.toLocaleString('pt-BR', { month: 'short' });
+    const year = date.getFullYear();
+    const timePart = date.toLocaleString('pt-BR', {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      hour12: false,
+    });
+
+    return `${day} ${month} ${year}, ${timePart}`;
+  } catch (error) {
+    throw new CustomErrorClass(ErrorSeverity.LogError, `formatDateTime: Invalid time object - arg:${date}, ${error}`);
+  }
+};
