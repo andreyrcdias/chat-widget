@@ -1,5 +1,5 @@
 {
-  "private": true,
+  "private": false,
   "workspaces": [
     "packages/*"
   ],
@@ -12,11 +12,29 @@
     "eslint": "eslint packages/ storybook/ --max-warnings 0",
     "e2e:install": "cd e2e && npm ci",
     "e2e:run": "(npm run dev&) && sleep 3s && cd e2e && npm run cy:run",
-    "lerna": "lerna"
+    "lerna": "lerna",
+    "publish": "npm publish --access public"
   },
   "devDependencies": {
     "@types/node": "^20.14.12",
     "lerna": "^8.1.2",
     "typescript": "^5.5.4"
-  }
+  },
+  "name": "@andreyrcdias/chat-widget",
+  "version": "1.0.5",
+  "description": "Rasa chatbot widget",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andreyrcdias/chat-widget.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andreyrcdias/chat-widget/issues"
+  },
+  "homepage": "https://github.com/andreyrcdias/chat-widget#readme"
 }
