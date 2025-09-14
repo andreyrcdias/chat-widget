@@ -13,6 +13,7 @@ interface Options {
   initialPayload?: string;
   authenticationToken?: string;
   senderId?: string;
+  metadata?: Record<string, string>;
 }
 
 export class Rasa extends EventEmitter {
@@ -23,8 +24,9 @@ export class Rasa extends EventEmitter {
   private isInitialConnection: boolean;
   private isSessionConfirmed: boolean;
   private senderId?: string;
+  private metadata: Record<string, string> = {};
 
-  public constructor({ url, protocol = 'ws', initialPayload, authenticationToken, senderId }: Options) {
+  public constructor({ url, protocol = 'ws', initialPayload, authenticationToken, senderId, metadata }: Options) {
     super();
     this.senderId = senderId;
     this._sessionId = senderId ? senderId : uuidv4();
@@ -32,6 +34,7 @@ export class Rasa extends EventEmitter {
     this.storageService = new StorageService();
     this.isInitialConnection = true;
     this.isSessionConfirmed = false;
+    this.metadata = metadata || {};
     const Connection = protocol === 'ws' ? WebSocketConnection : HTTPConnection;
     const { onConnect, onDisconnect, onBotResponse, onSessionConfirm } = this;
     this.connection = new Connection({
@@ -78,6 +81,7 @@ export class Rasa extends EventEmitter {
         startDate: sessionStart,
       });
       // @TODO ask Tom about this behavior
+      // WIP
       if (this.initialPayload) {
         this.connection.sendMessage(this.initialPayload, this.sessionId);
       }

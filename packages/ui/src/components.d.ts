@@ -98,6 +98,10 @@ export namespace Components {
          */
         "messageTimestamp": string;
         /**
+          * Metadata object to send along with every message
+         */
+        "metadata": Record<string, string>;
+        /**
           * If set to True, instead of the default WebSocket communication, the widget will use the HTTP protocol.
          */
         "restEnabled": boolean;
@@ -976,6 +980,10 @@ declare namespace LocalJSX {
           * Format of the message timestamp
          */
         "messageTimestamp"?: string;
+        /**
+          * Metadata object to send along with every message
+         */
+        "metadata"?: Record<string, string>;
         /**
           * Emitted when the Chat Widget is opened by the user
          */

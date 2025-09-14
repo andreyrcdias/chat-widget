@@ -153,6 +153,12 @@ export class RasaChatbotWidget {
    * */
   @Prop() restEnabled: boolean = false;
 
+  /**
+   * Metadata object to send along with every message
+   */
+  @Prop() metadata: Record<string, string> = {};
+
+  // WIP
   componentWillLoad() {
     const {
       serverUrl,
@@ -171,6 +177,7 @@ export class RasaChatbotWidget {
       toggleFullScreen,
       inputMessagePlaceholder,
       restEnabled,
+      metadata,
     } = this;
     setConfigStore({
       serverUrl,
@@ -189,10 +196,11 @@ export class RasaChatbotWidget {
       toggleFullScreen,
       inputMessagePlaceholder,
       restEnabled,
+      metadata,
     });
     const protocol = this.restEnabled ? 'http' : 'ws';
 
-    this.client = new Rasa({ url: this.serverUrl, protocol, initialPayload, authenticationToken, senderId });
+    this.client = new Rasa({ url: this.serverUrl, protocol, initialPayload, authenticationToken, senderId, metadata });
 
     this.client.on('connect', () => {
       this.isConnected = true;
@@ -247,7 +255,7 @@ export class RasaChatbotWidget {
         setTimeout(() => {
           messageQueueService.enqueueMessage(data);
           this.typingIndicator = false;
-          // If senderID is configured and message was sent from this tab, broadcast event to share chat history with other tabs with same senderID 
+          // If senderID is configured and message was sent from this tab, broadcast event to share chat history with other tabs with same senderID
           if (this.senderId && this.sentMessage) {
             debounce(() => {
               broadcastChatHistoryEvent(this.client.getChatHistory(), this.senderId);
@@ -301,6 +309,7 @@ export class RasaChatbotWidget {
   }
 
   @Listen('sendMessageHandler')
+  // WIP
   // @ts-ignore-next-line
   private sendMessageHandler(event: CustomEvent<string>) {
     const timestamp = new Date();
@@ -416,7 +425,7 @@ export class RasaChatbotWidget {
               ></rasa-rating>
             </chat-message>
           );
-      
+
     }
   }
 

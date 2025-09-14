@@ -35,6 +35,7 @@ describe('HTTPConnection', () => {
       json: jest.fn().mockResolvedValue(response),
     });
 
+    const metadata = {};
     await httpConnection.sendMessage(message, sessionId);
 
     expect(global.fetch).toHaveBeenCalledWith(`${url}/webhooks/rest/webhook`, {
@@ -59,6 +60,7 @@ describe('HTTPConnection', () => {
       headers: new Headers(),
       json: jest.fn().mockResolvedValue(response),
     });
+    const metadata = {};
     await httpConnection.sendMessage(message, sessionId);
 
     expect(global.fetch).toHaveBeenCalledWith(`${url}/webhooks/rest/webhook`, {
@@ -79,6 +81,7 @@ describe('HTTPConnection', () => {
       json: jest.fn().mockResolvedValue(response)
     });
 
+    const metadata = {};
     try {
       await httpConnection.sendMessage(message, sessionId);
     } catch (error: any) {
