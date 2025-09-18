@@ -313,7 +313,7 @@ export class RasaChatbotWidget {
   // @ts-ignore-next-line
   private sendMessageHandler(event: CustomEvent<string>) {
     const timestamp = new Date();
-    this.client.sendMessage({ text: event.detail, timestamp });
+    this.client.sendMessage({ text: event.detail, timestamp: timestamp, metadata: this.metadata });
     this.chatWidgetSentMessage.emit(event.detail);
     this.messages = [...this.messages, { type: 'text', text: event.detail, sender: 'user', timestamp }];
     this.scrollToBottom();
@@ -328,7 +328,7 @@ export class RasaChatbotWidget {
     const updatedMessage = this.messages[key] as QuickReplyMessage;
     updatedMessage.replies.find(qr => qr.reply === quickReply.reply).isSelected = true;
     this.messages[key] = updatedMessage;
-    this.client.sendMessage({ text: quickReply.text, reply: quickReply.reply, timestamp }, true, key - 1);
+    this.client.sendMessage({ text: quickReply.text, reply: quickReply.reply, timestamp: timestamp, metadata: this.metadata }, true, key - 1);
     this.chatWidgetQuickReply.emit(quickReply.reply);
     this.sentMessage = true;
   }

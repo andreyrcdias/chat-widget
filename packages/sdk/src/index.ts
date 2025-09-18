@@ -81,9 +81,8 @@ export class Rasa extends EventEmitter {
         startDate: sessionStart,
       });
       // @TODO ask Tom about this behavior
-      // WIP
       if (this.initialPayload) {
-        this.connection.sendMessage(this.initialPayload, this.sessionId);
+        this.connection.sendMessage(this.initialPayload, this.sessionId, this.metadata);
       }
     }
   };
@@ -122,11 +121,11 @@ export class Rasa extends EventEmitter {
   }
 
   public sendMessage(
-    { text, reply, timestamp }: { text: string; reply?: string; timestamp?: Date },
+    { text, reply, timestamp, metadata }: { text: string; reply?: string; timestamp?: Date, metadata?: Record<string, string> },
     isQuickReply = false,
     messageKey?: number,
   ): void {
-    this.connection.sendMessage(reply ?? text, this.sessionId);
+    this.connection.sendMessage(reply ?? text, this.sessionId, this.metadata);
     this.storageService.setMessage({ sender: SENDER.USER, text, timestamp }, this.sessionId);
     if (isQuickReply && messageKey && reply) {
       this.storageService.setQuickReplyValue(reply, messageKey, this.sessionId);

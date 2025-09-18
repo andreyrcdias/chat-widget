@@ -55,14 +55,16 @@ export class HTTPConnection implements ConnectionStrategy {
   }
 
   // TODO: add an attribute `metadata` to this function and add into the body of the request
-  public async sendMessage(message: string, sessionId: string,): Promise<void> {
+  public async sendMessage(message: string, sessionId: string, metadata: Record<string, string>): Promise<void> {
     const headers = new Headers();
     if (this.authenticationToken) {
       headers.append('Authorization', `Bearer ${this.authenticationToken}`);
     }
 
-    const body: Record<string, unknown> = { sender: sessionId, message };
-    body.metadata = {};
+    const body: Record<string, unknown> = { sender: sessionId, message, metadata };
+    if (metadata) {
+      body.metadata = metadata;
+    }
     console.log('HTTPConnection: Sending message', body);
 
     return fetch(`${this.url}/webhooks/rest/webhook`, {
