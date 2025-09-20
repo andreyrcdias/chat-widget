@@ -17,7 +17,7 @@ export interface ConnectionStrategy extends ConnectionParams {
   sendMessage(
     message: string,
     sessionId: string,
-    metadata: Record<string, string>,
+    metadata: string,
     cb: (data: MessageResponse[]) => void,
   );
   sessionRequest(sessionId: string): void;

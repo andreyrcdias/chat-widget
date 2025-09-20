@@ -28,6 +28,7 @@ describe('HTTPConnection', () => {
     const message = 'Hello';
     const response: HttpResponse[] = [{ recipient_id: sessionId, text: 'Hi there' }];
     const normalizedResponse: MessageResponse[] = [{ text: 'Hi there' }];
+    const metadata = '';
 
     (global.fetch as jest.Mock).mockResolvedValue({
       ok: true,
@@ -35,13 +36,12 @@ describe('HTTPConnection', () => {
       json: jest.fn().mockResolvedValue(response),
     });
 
-    const metadata = {};
-    await httpConnection.sendMessage(message, sessionId);
+    await httpConnection.sendMessage(message, sessionId, metadata);
 
     expect(global.fetch).toHaveBeenCalledWith(`${url}/webhooks/rest/webhook`, {
       method: 'POST',
       headers: new Headers(),
-      body: JSON.stringify({ sender: sessionId, message }),
+      body: JSON.stringify({ sender: sessionId, message: message, metadata: metadata}),
     });
 
     expect(onBotResponse).toHaveBeenCalledWith(normalizedResponse[0]);
@@ -60,13 +60,13 @@ describe('HTTPConnection', () => {
       headers: new Headers(),
       json: jest.fn().mockResolvedValue(response),
     });
-    const metadata = {};
-    await httpConnection.sendMessage(message, sessionId);
+    const metadata = '';
+    await httpConnection.sendMessage(message, sessionId, metadata);
 
     expect(global.fetch).toHaveBeenCalledWith(`${url}/webhooks/rest/webhook`, {
       method: 'POST',
       headers: expectedHeaders,
-      body: JSON.stringify({ sender: sessionId, message }),
+      body: JSON.stringify({ sender: sessionId, message: message, metadata: metadata }),
     });
     expect(onBotResponse).toHaveBeenCalledWith(normalizedResponse[0]);
   });
@@ -74,6 +74,7 @@ describe('HTTPConnection', () => {
   it('should throw error when a response not ok', async () => {
     const message = 'Hello';
     const response: HttpResponse[] = [{ recipient_id: sessionId, text: 'Hi there' }];
+    const metadata = '';
 
     (global.fetch as jest.Mock).mockResolvedValue({
       ok: false,
@@ -81,9 +82,8 @@ describe('HTTPConnection', () => {
       json: jest.fn().mockResolvedValue(response)
     });
 
-    const metadata = {};
     try {
-      await httpConnection.sendMessage(message, sessionId);
+      await httpConnection.sendMessage(message, sessionId, metadata);
     } catch (error: any) {
       expect(error.severity).toBe(ErrorSeverity.Error);
       expect(error.message).toBe('Server error');

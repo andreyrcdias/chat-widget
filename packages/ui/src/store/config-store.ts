@@ -18,7 +18,7 @@ export type WidgetConfig = {
   senderId: string;
   widgetIcon: string;
   restEnabled: boolean;
-  metadata: Record<string, string>;
+  metadata: string;
 };
 
 const configStoreDefaults: WidgetConfig = {

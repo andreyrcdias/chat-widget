@@ -156,7 +156,7 @@ export class RasaChatbotWidget {
   /**
    * Metadata object to send along with every message
    */
-  @Prop() metadata: Record<string, string> = {};
+  @Prop() metadata: string = '';
 
   // WIP
   componentWillLoad() {
@@ -315,7 +315,7 @@ export class RasaChatbotWidget {
     const timestamp = new Date();
     this.client.sendMessage({ text: event.detail, timestamp: timestamp, metadata: this.metadata });
     this.chatWidgetSentMessage.emit(event.detail);
-    this.messages = [...this.messages, { type: 'text', text: event.detail, sender: 'user', timestamp }];
+    this.messages = [...this.messages, { type: 'text', text: event.detail, sender: 'user', timestamp: timestamp }];
     this.scrollToBottom();
     this.sentMessage = true;
   }

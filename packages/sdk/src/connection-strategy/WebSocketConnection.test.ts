@@ -85,10 +85,11 @@ describe('WebSocketConnection', () => {
   it('should send message correctly', () => {
     const message = 'hello';
     const sessionId = 'session1';
+    const metadata = '';
 
-    connection.sendMessage(message, sessionId);
+    connection.sendMessage(message, sessionId, metadata);
 
-    expect(socket.emit).toHaveBeenCalledWith('user_uttered', { message, session_id: sessionId });
+    expect(socket.emit).toHaveBeenCalledWith('user_uttered', { message, session_id: sessionId, metadata: metadata });
   });
 
   it('should disconnect the socket', () => {

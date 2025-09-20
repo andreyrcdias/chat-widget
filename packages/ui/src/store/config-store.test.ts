@@ -21,6 +21,7 @@ describe('configStore', () => {
       toggleFullScreen: false,
       senderId: '',
       widgetIcon: '',
+      metadata: {},
     });
   });
 
@@ -30,6 +31,7 @@ describe('configStore', () => {
       botIcon: 'bot-icon.png',
       displayTimestamp: true,
       widgetTitle: 'New Title',
+      metadata: 'foo=bar',
     };
 
     setConfigStore(newConfig);
@@ -39,5 +41,6 @@ describe('configStore', () => {
     expect(updatedConfig.botIcon).toBe('bot-icon.png');
     expect(updatedConfig.displayTimestamp).toBe(true);
     expect(updatedConfig.widgetTitle).toBe('New Title');
+    expect(updatedConfig.metadata).toBe('foo=bar');
   });
 });

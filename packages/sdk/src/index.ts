@@ -13,7 +13,7 @@ interface Options {
   initialPayload?: string;
   authenticationToken?: string;
   senderId?: string;
-  metadata?: Record<string, string>;
+  metadata?: string;
 }
 
 export class Rasa extends EventEmitter {
@@ -24,7 +24,7 @@ export class Rasa extends EventEmitter {
   private isInitialConnection: boolean;
   private isSessionConfirmed: boolean;
   private senderId?: string;
-  private metadata: Record<string, string> = {};
+  private metadata?: string = '';
 
   public constructor({ url, protocol = 'ws', initialPayload, authenticationToken, senderId, metadata }: Options) {
     super();
@@ -34,7 +34,7 @@ export class Rasa extends EventEmitter {
     this.storageService = new StorageService();
     this.isInitialConnection = true;
     this.isSessionConfirmed = false;
-    this.metadata = metadata || {};
+    this.metadata = metadata || '';
     const Connection = protocol === 'ws' ? WebSocketConnection : HTTPConnection;
     const { onConnect, onDisconnect, onBotResponse, onSessionConfirm } = this;
     this.connection = new Connection({
@@ -82,7 +82,7 @@ export class Rasa extends EventEmitter {
       });
       // @TODO ask Tom about this behavior
       if (this.initialPayload) {
-        this.connection.sendMessage(this.initialPayload, this.sessionId, this.metadata);
+        this.connection.sendMessage(this.initialPayload, this.sessionId, this.metadata || '');
       }
     }
   };
@@ -121,12 +121,12 @@ export class Rasa extends EventEmitter {
   }
 
   public sendMessage(
-    { text, reply, timestamp, metadata }: { text: string; reply?: string; timestamp?: Date, metadata?: Record<string, string> },
+    { text, reply, timestamp, metadata }: { text: string; reply?: string; timestamp?: Date, metadata?: string },
     isQuickReply = false,
     messageKey?: number,
   ): void {
-    this.connection.sendMessage(reply ?? text, this.sessionId, this.metadata);
-    this.storageService.setMessage({ sender: SENDER.USER, text, timestamp }, this.sessionId);
+    this.connection.sendMessage(reply ?? text, this.sessionId, metadata || '');
+    this.storageService.setMessage({ sender: SENDER.USER, text, timestamp, metadata }, this.sessionId);
     if (isQuickReply && messageKey && reply) {
       this.storageService.setQuickReplyValue(reply, messageKey, this.sessionId);
     }

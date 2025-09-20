@@ -18,5 +18,5 @@ export const WIDGET_DEFAULT_CONFIGURATION = {
   INITIAL_PAYLOAD: '',
   SERVER_URL: '',
   REST_ENABLED: false,
-  METADATADA: {} as Record<string, string>,
+  METADATADA: '',
 };

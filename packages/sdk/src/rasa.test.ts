@@ -218,27 +218,31 @@ describe('Rasa Client', () => {
       expect(triggerSpy).toHaveBeenCalledTimes(2);
       expect(setSessionSpy).toHaveBeenCalledWith(client.sessionId, new Date());
       expect(setSessionSpy).toHaveBeenCalledTimes(1);
-      expect(sendMessageSpy).toHaveBeenCalledWith('/session_start', client.sessionId);
+      expect(sendMessageSpy).toHaveBeenCalledWith('/session_start', client.sessionId, {});
       expect(sendMessageSpy).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('Messaging', () => {
     it('should send a new message', () => {
+      // const metadata = '';
       client.sendMessage({ text: 'Hello' });
 
       expect(mockSocketEmit).toHaveBeenCalledWith('user_uttered', {
         message: 'Hello',
         session_id: client.sessionId,
+        // metadata: metadata
       });
     });
 
     it('should send a new message (quick-reply)', () => {
+      // const metadata = '';
       client.sendMessage({ text: 'Hello', reply: 'hello', timestamp: new Date() }, true, 1);
       
       expect(mockSocketEmit).toHaveBeenCalledWith('user_uttered', {
         message: 'Hello',
         session_id: client.sessionId,
+        // metadata: metadata
       });
       expect(setQuickReplyValueSpy).toHaveBeenCalledWith('hello', 1, client.sessionId);
     });
